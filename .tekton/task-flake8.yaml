@@ -1,0 +1,78 @@
+﻿apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  annotations:
+    openshift.io/installed-from: Tektonhub
+    tekton.dev/categories: Code Quality
+    tekton.dev/displayName: flake8
+    tekton.dev/pipelines.minVersion: 0.12.1
+    tekton.dev/platforms: linux/amd64
+    tekton.dev/tags: 'python, flake8, linter'
+  resourceVersion: '2532737630'
+  name: flake8
+  uid: 0ff2338a-0c5e-4e41-9140-600f692925ef
+  creationTimestamp: '2025-12-12T14:54:00Z'
+  generation: 1
+  managedFields:
+    - apiVersion: tekton.dev/v1beta1
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:annotations':
+            .: {}
+            'f:openshift.io/installed-from': {}
+            'f:tekton.dev/categories': {}
+            'f:tekton.dev/displayName': {}
+            'f:tekton.dev/pipelines.minVersion': {}
+            'f:tekton.dev/platforms': {}
+            'f:tekton.dev/tags': {}
+          'f:labels':
+            .: {}
+            'f:app.kubernetes.io/version': {}
+        'f:spec':
+          .: {}
+          'f:description': {}
+          'f:params': {}
+          'f:steps': {}
+          'f:workspaces': {}
+      manager: Mozilla
+      operation: Update
+      time: '2025-12-12T14:54:00Z'
+  namespace: sn-labs-ayoubchaieb7
+  labels:
+    app.kubernetes.io/version: '0.1'
+spec:
+  description: This task will run flake8 on the provided input.
+  params:
+    - default: 'docker.io/alpine/flake8@sha256:bb280bf2af4a434be912f25bbcb6c79ea4d735ed3c8e259f96c405998920871f'
+      description: The container image with flake8
+      name: image
+      type: string
+    - default: .
+      description: The path to the module which should be analysed by flake8
+      name: path
+      type: string
+    - default: requirements.txt
+      description: The name of the requirements file inside the source location
+      name: requirements_file
+      type: string
+    - default: []
+      description: The arguments to pass to the flake8 CLI.
+      name: args
+      type: array
+  steps:
+    - args:
+        - $(params.args)
+      computeResources: {}
+      image: $(params.image)
+      name: flake8
+      script: |
+        export HOME=/tmp/python
+        export PATH=$PATH:/tmp/python/.local/bin
+        if [ -n "$(params.requirements_file)" ] && [ -e "$(params.requirements_file)" ];then
+            python -mpip install --user -r $(params.requirements_file)
+        fi
+        flake8 $@ $(params.path)
+      workingDir: $(workspaces.source.path)
+  workspaces:
+    - name: source

@@ -1,0 +1,59 @@
+﻿apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"tekton.dev/v1beta1","kind":"Task","metadata":{"annotations":{},"name":"cleanup","namespace":"sn-labs-ayoubchaieb7"},"spec":{"description":"This task will clean up a workspace by deleting all the files.","steps":[{"env":[{"name":"WORKSPACE_SOURCE_PATH","value":"$(workspaces.source.path)"}],"image":"alpine:3","name":"remove","script":"#!/usr/bin/env sh\nset -eu\necho \"Removing all files from ${WORKSPACE_SOURCE_PATH} ...\"\n# Delete any existing contents of the directory if it exists.\n#\n# We don't just \"rm -rf ${WORKSPACE_SOURCE_PATH}\" because ${WORKSPACE_SOURCE_PATH} might be \"/\"\n# or the root of a mounted volume.\nif [ -d \"${WORKSPACE_SOURCE_PATH}\" ] ; then\n  # Delete non-hidden files and directories\n  rm -rf \"${WORKSPACE_SOURCE_PATH:?}\"/*\n  # Delete files and directories starting with . but excluding ..\n  rm -rf \"${WORKSPACE_SOURCE_PATH}\"/.[!.]*\n  # Delete files and directories starting with .. plus any other character\n  rm -rf \"${WORKSPACE_SOURCE_PATH}\"/..?*\nfi\n","securityContext":{"runAsNonRoot":false,"runAsUser":0},"workingDir":"$(workspaces.source.path)"}],"workspaces":[{"name":"source"}]}}
+  creationTimestamp: '2025-12-12T14:34:33Z'
+  generation: 2
+  managedFields:
+    - apiVersion: tekton.dev/v1beta1
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:annotations':
+            .: {}
+            'f:kubectl.kubernetes.io/last-applied-configuration': {}
+        'f:spec':
+          .: {}
+          'f:description': {}
+          'f:steps': {}
+          'f:workspaces': {}
+      manager: kubectl-client-side-apply
+      operation: Update
+      time: '2025-12-12T14:40:16Z'
+  name: cleanup
+  namespace: sn-labs-ayoubchaieb7
+  resourceVersion: '2532720765'
+  uid: 165c3d7a-2eef-4235-8512-139f11a20017
+spec:
+  description: This task will clean up a workspace by deleting all the files.
+  steps:
+    - computeResources: {}
+      env:
+        - name: WORKSPACE_SOURCE_PATH
+          value: $(workspaces.source.path)
+      image: 'alpine:3'
+      name: remove
+      script: |
+        #!/usr/bin/env sh
+        set -eu
+        echo "Removing all files from ${WORKSPACE_SOURCE_PATH} ..."
+        # Delete any existing contents of the directory if it exists.
+        #
+        # We don't just "rm -rf ${WORKSPACE_SOURCE_PATH}" because ${WORKSPACE_SOURCE_PATH} might be "/"
+        # or the root of a mounted volume.
+        if [ -d "${WORKSPACE_SOURCE_PATH}" ] ; then
+          # Delete non-hidden files and directories
+          rm -rf "${WORKSPACE_SOURCE_PATH:?}"/*
+          # Delete files and directories starting with . but excluding ..
+          rm -rf "${WORKSPACE_SOURCE_PATH}"/.[!.]*
+          # Delete files and directories starting with .. plus any other character
+          rm -rf "${WORKSPACE_SOURCE_PATH}"/..?*
+        fi
+      securityContext:
+        runAsNonRoot: false
+        runAsUser: 0
+      workingDir: $(workspaces.source.path)
+  workspaces:
+    - name: source

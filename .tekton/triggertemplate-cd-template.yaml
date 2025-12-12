@@ -1,0 +1,46 @@
+﻿apiVersion: triggers.tekton.dev/v1beta1
+kind: TriggerTemplate
+metadata:
+  creationTimestamp: '2025-12-12T15:43:02Z'
+  generation: 4
+  managedFields:
+    - apiVersion: triggers.tekton.dev/v1beta1
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:spec':
+          .: {}
+          'f:params': {}
+          'f:resourcetemplates': {}
+      manager: Mozilla
+      operation: Update
+      time: '2025-12-12T16:14:04Z'
+  name: cd-template
+  namespace: sn-labs-ayoubchaieb7
+  resourceVersion: '2532848469'
+  uid: bf71302e-a152-46b0-a7ad-2be9fa6b05c5
+spec:
+  params:
+    - default: ' '
+      description: The git repo
+      name: repository
+    - default: master
+      description: the branch for the git repo
+      name: branch
+  resourcetemplates:
+    - apiVersion: tekton.dev/v1beta1
+      kind: PipelineRun
+      metadata:
+        generateName: cd-pipeline-run-
+      spec:
+        params:
+          - name: repo-url
+            value: $(tt.params.repository)
+          - name: branch
+            value: $(tt.params.branch)
+        pipelineRef:
+          name: output
+        serviceAccountName: pipeline
+        workspaces:
+          - name: output
+            persistentVolumeClaim:
+              claimName: oc-lab-pvc

@@ -1,0 +1,83 @@
+﻿kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: oc-lab-pvc
+  namespace: sn-labs-ayoubchaieb7
+  uid: a9f47314-adce-4139-81b6-337fc6ddb1cb
+  resourceVersion: '2532757563'
+  creationTimestamp: '2025-12-12T14:48:48Z'
+  annotations:
+    pv.kubernetes.io/bind-completed: 'yes'
+    pv.kubernetes.io/bound-by-controller: 'yes'
+    volume.beta.kubernetes.io/storage-provisioner: cluster.local/pipeline-nfs-provisioner-nfs-subdir-external-provisioner
+    volume.kubernetes.io/selected-node: 10.241.0.138
+    volume.kubernetes.io/storage-provisioner: cluster.local/pipeline-nfs-provisioner-nfs-subdir-external-provisioner
+  finalizers:
+    - kubernetes.io/pvc-protection
+  managedFields:
+    - manager: Mozilla
+      operation: Update
+      apiVersion: v1
+      time: '2025-12-12T14:48:48Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:spec':
+          'f:accessModes': {}
+          'f:resources':
+            'f:requests':
+              .: {}
+              'f:storage': {}
+          'f:storageClassName': {}
+          'f:volumeMode': {}
+    - manager: kube-controller-manager
+      operation: Update
+      apiVersion: v1
+      time: '2025-12-12T15:09:06Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:annotations':
+            'f:pv.kubernetes.io/bind-completed': {}
+            'f:pv.kubernetes.io/bound-by-controller': {}
+            'f:volume.beta.kubernetes.io/storage-provisioner': {}
+            'f:volume.kubernetes.io/storage-provisioner': {}
+        'f:spec':
+          'f:volumeName': {}
+    - manager: kube-controller-manager
+      operation: Update
+      apiVersion: v1
+      time: '2025-12-12T15:09:06Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:status':
+          'f:accessModes': {}
+          'f:capacity':
+            .: {}
+            'f:storage': {}
+          'f:phase': {}
+      subresource: status
+    - manager: kube-scheduler
+      operation: Update
+      apiVersion: v1
+      time: '2025-12-12T15:09:06Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:annotations':
+            .: {}
+            'f:volume.kubernetes.io/selected-node': {}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  volumeName: pvc-a9f47314-adce-4139-81b6-337fc6ddb1cb
+  storageClassName: skills-network-learner
+  volumeMode: Filesystem
+status:
+  phase: Bound
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 1Gi
