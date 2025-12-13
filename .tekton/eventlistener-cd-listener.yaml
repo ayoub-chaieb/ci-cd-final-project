@@ -1,42 +1,8 @@
 ﻿apiVersion: triggers.tekton.dev/v1beta1
 kind: EventListener
 metadata:
-  creationTimestamp: '2025-12-12T15:41:23Z'
-  generation: 1
-  managedFields:
-    - apiVersion: triggers.tekton.dev/v1beta1
-      fieldsType: FieldsV1
-      fieldsV1:
-        'f:spec':
-          .: {}
-          'f:serviceAccountName': {}
-          'f:triggers': {}
-      manager: Mozilla
-      operation: Update
-      time: '2025-12-12T15:41:23Z'
-    - apiVersion: triggers.tekton.dev/v1beta1
-      fieldsType: FieldsV1
-      fieldsV1:
-        'f:status':
-          .: {}
-          'f:address':
-            .: {}
-            'f:url': {}
-          'f:conditions': {}
-          'f:configuration':
-            .: {}
-            'f:generatedName': {}
-      manager: controller
-      operation: Update
-      subresource: status
-      time: '2025-12-12T15:42:54Z'
   name: cd-listener
-  namespace: sn-labs-ayoubchaieb7
-  resourceVersion: '2532802021'
-  uid: dc09a1be-823b-4d4a-b08f-2eee72482243
 spec:
-  namespaceSelector: {}
-  resources: {}
   serviceAccountName: pipeline
   triggers:
     - bindings:
@@ -44,31 +10,3 @@ spec:
           ref: cd-binding
       template:
         ref: cd-template
-status:
-  address:
-    url: 'http://el-cd-listener.sn-labs-ayoubchaieb7.svc.cluster.local:8080'
-  conditions:
-    - lastTransitionTime: '2025-12-12T15:42:54Z'
-      message: Deployment has minimum availability.
-      reason: MinimumReplicasAvailable
-      status: 'True'
-      type: Available
-    - lastTransitionTime: '2025-12-12T15:42:54Z'
-      message: Deployment exists
-      status: 'True'
-      type: Deployment
-    - lastTransitionTime: '2025-12-12T15:42:54Z'
-      message: ReplicaSet "el-cd-listener-6885f9548b" has successfully progressed.
-      reason: NewReplicaSetAvailable
-      status: 'True'
-      type: Progressing
-    - lastTransitionTime: '2025-12-12T15:42:54Z'
-      message: EventListener is ready
-      status: 'True'
-      type: Ready
-    - lastTransitionTime: '2025-12-12T15:42:54Z'
-      message: Service exists
-      status: 'True'
-      type: Service
-  configuration:
-    generatedName: el-cd-listener
