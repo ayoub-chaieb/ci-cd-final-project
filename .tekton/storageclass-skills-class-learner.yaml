@@ -1,0 +1,65 @@
+#storageclass-skills-class-learner.yaml:
+
+provisioner: cluster.local/pipeline-nfs-provisioner-nfs-subdir-external-provisioner
+mountOptions:
+  - nfsvers=4.1
+  - sec=sys
+  - _netdev
+parameters:
+  archiveOnDelete: 'true'
+volumeBindingMode: WaitForFirstConsumer
+metadata:
+  name: skills-network-learner
+  uid: 6e72106c-3b04-490f-bfa5-7a3b135ea157
+  resourceVersion: '529479767'
+  creationTimestamp: '2022-07-21T17:13:56Z'
+  labels:
+    app: nfs-subdir-external-provisioner
+    app.kubernetes.io/managed-by: Helm
+    chart: raw-0.2.5
+    heritage: Helm
+    meta.helm.sh/release-name: pipeline-nfs-provisioner-storageclass
+    meta.helm.sh/release-namespace: pipeline-nfs-provisioner
+    release: pipeline-nfs-provisioner-storageclass
+  annotations:
+    meta.helm.sh/release-name: pipeline-nfs-provisioner-storageclass
+    meta.helm.sh/release-namespace: pipeline-nfs-provisioner
+    storageclass.kubernetes.io/is-default-class: 'true'
+  managedFields:
+    - manager: helm
+      operation: Update
+      apiVersion: storage.k8s.io/v1
+      time: '2022-07-21T17:13:56Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:allowedTopologies': {}
+        'f:metadata':
+          'f:annotations':
+            .: {}
+            'f:meta.helm.sh/release-name': {}
+            'f:meta.helm.sh/release-namespace': {}
+            'f:storageclass.kubernetes.io/is-default-class': {}
+          'f:labels':
+            .: {}
+            'f:app': {}
+            'f:app.kubernetes.io/managed-by': {}
+            'f:chart': {}
+            'f:heritage': {}
+            'f:meta.helm.sh/release-name': {}
+            'f:meta.helm.sh/release-namespace': {}
+            'f:release': {}
+        'f:mountOptions': {}
+        'f:parameters':
+          .: {}
+          'f:archiveOnDelete': {}
+        'f:provisioner': {}
+        'f:reclaimPolicy': {}
+        'f:volumeBindingMode': {}
+kind: StorageClass
+allowedTopologies:
+  - matchLabelExpressions:
+      - key: topology.kubernetes.io/zone
+        values:
+          - us-east-1
+reclaimPolicy: Delete
+apiVersion: storage.k8s.io/v1
