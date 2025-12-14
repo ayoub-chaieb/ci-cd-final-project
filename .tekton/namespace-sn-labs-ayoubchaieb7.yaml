@@ -1,0 +1,75 @@
+#namespace-sn-labs-ayoubchaieb7.yaml: 
+
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: sn-labs-ayoubchaieb7
+  uid: beb0d584-2000-4d9b-92fa-8191d95d37a1
+  resourceVersion: '2534721427'
+  creationTimestamp: '2025-12-13T17:39:06Z'
+  labels:
+    kubernetes.io/metadata.name: sn-labs-ayoubchaieb7
+    openshift-pipelines.tekton.dev/namespace-reconcile-version: 1.15.3
+    name: sn-labs-ayoubchaieb7
+    pod-security.kubernetes.io/warn: baseline
+    pod-security.kubernetes.io/audit: baseline
+    learnersandbox: 'true'
+    pod-security.kubernetes.io/warn-version: v1.24
+    pod-security.kubernetes.io/enforce: baseline
+    pod-security.kubernetes.io/audit-version: v1.24
+  annotations:
+    openshift.io/sa.scc.mcs: 's0:c50,c15'
+    openshift.io/sa.scc.supplemental-groups: 1002480000/10000
+    openshift.io/sa.scc.uid-range: 1002480000/10000
+  managedFields:
+    - manager: pod-security-admission-label-synchronization-controller
+      operation: Apply
+      apiVersion: v1
+      time: '2025-12-13T17:39:06Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:labels':
+            'f:pod-security.kubernetes.io/audit-version': {}
+            'f:pod-security.kubernetes.io/warn-version': {}
+    - manager: cluster-policy-controller
+      operation: Update
+      apiVersion: v1
+      time: '2025-12-13T17:39:06Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:annotations':
+            .: {}
+            'f:openshift.io/sa.scc.mcs': {}
+            'f:openshift.io/sa.scc.supplemental-groups': {}
+            'f:openshift.io/sa.scc.uid-range': {}
+    - manager: unknown
+      operation: Update
+      apiVersion: v1
+      time: '2025-12-13T17:39:06Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:labels':
+            .: {}
+            'f:kubernetes.io/metadata.name': {}
+            'f:learnersandbox': {}
+            'f:name': {}
+            'f:pod-security.kubernetes.io/audit': {}
+            'f:pod-security.kubernetes.io/enforce': {}
+            'f:pod-security.kubernetes.io/warn': {}
+    - manager: openshift-pipelines-operator
+      operation: Update
+      apiVersion: v1
+      time: '2025-12-13T17:39:13Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:labels':
+            'f:openshift-pipelines.tekton.dev/namespace-reconcile-version': {}
+spec:
+  finalizers:
+    - kubernetes
+status:
+  phase: Active
