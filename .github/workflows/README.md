@@ -150,7 +150,7 @@ If the workflow fails on CI, reproduce locally with the commands above to iterat
 Add a status badge to the repository README (replace `<owner>` and `<repo>`):
 
 ```markdown
-![CI](https://github.com/<owner>/<repo>/actions/workflows/workflow.yaml/badge.svg)
+![CI](https://github.com/ayoub-chaieb/ci-cd-final-project/actions/workflows/workflow.yaml/badge.svg)
 ```
 
 This will show the latest build status for that workflow file.
@@ -169,7 +169,7 @@ This will show the latest build status for that workflow file.
 
 ---
 
-## Resume-ready summary (what this workflow demonstrates)
+## Summary (what this workflow demonstrates)
 
 * Implemented an automated CI workflow using **GitHub Actions** to enforce:
 
