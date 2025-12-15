@@ -15,7 +15,7 @@ spec:
     - apiVersion: tekton.dev/v1beta1
       kind: PipelineRun
       metadata:
-        generateName: cd-pipeline-run-
+        generateName: triggered-cd-pipeline-run-
       spec:
         params:
           - name: repo-url
