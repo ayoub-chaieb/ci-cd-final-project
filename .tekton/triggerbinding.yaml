@@ -1,0 +1,11 @@
+﻿apiVersion: triggers.tekton.dev/v1beta1
+kind: TriggerBinding
+metadata:
+  name: cd-binding
+  namespace: sn-labs-ayoubchaieb7
+spec:
+  params:
+    - name: repository
+      value: $(body.repository.url)
+    - name: branch
+      value: $(body.ref)
