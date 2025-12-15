@@ -39,7 +39,9 @@ This directory will contain all the Tekton workflows i created in this CI/CD Too
 
 ## Quick apply (one-shot)
 
-Run these commands in order to get everything installed in your namespace:
+Run `apply-all.bash`to get everything installed in your namespace
+
+(equivalent to) running these commands in order:
 
 ```bash
 OC_NS=sn-labs-ayoubchaieb7   # change to your namespace if different
