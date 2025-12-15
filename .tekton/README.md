@@ -395,3 +395,136 @@ kubectl apply -f .tekton/clustertasks.yaml
 oc expose svc/el-cd-listener -n sn-labs-ayoubchaieb7
 oc get route -n sn-labs-ayoubchaieb7 -o wide
 ```
+
+---
+
+## 🔁 Automated Deployment with `apply-all.sh` (Completed)
+
+To streamline deployment and ensure **repeatable, error-free CI/CD setup**, an automation script named **`apply-all.sh`** was created and successfully used.
+This script applies **all Tekton and OpenShift resources in the correct dependency order**, eliminating manual errors and accelerating environment setup.
+
+---
+
+### 🎯 Purpose of the Script
+
+The `apply-all.sh` script was designed to:
+
+* Enforce **correct resource application order**
+* Reduce manual CLI work and human error
+* Enable **rapid re-deployment** after sandbox resets
+* Support both **manual PipelineRuns** and **GitHub webhook triggers**
+* Provide a **single command bootstrap** for the entire CI/CD stack
+
+This approach reflects real-world DevOps practices where infrastructure and pipelines are applied **as code**.
+
+---
+
+### 🧩 Resources Applied by the Script
+
+The script applies the following components sequentially:
+
+1. **ClusterTasks**
+
+   * Reusable cluster-wide tasks (`git-clone`, `buildah`, `openshift-client`)
+   * Enables standardized build and deployment logic
+
+2. **Tekton Tasks**
+
+   * Custom tasks such as `cleanup`, `flake8`, and `nose`
+   * Enforces code quality, linting, and unit testing
+
+3. **Storage Configuration**
+
+   * `StorageClass`
+   * `PersistentVolumeClaim (PVC)`
+   * Ensures shared workspace persistence across pipeline tasks
+
+4. **Pipeline Definition**
+
+   * Complete CI/CD pipeline from source clone → test → build → deploy
+   * Uses `finally` task to deploy application regardless of pipeline outcome
+
+5. **Triggers & Event Handling**
+
+   * `TriggerBinding`
+   * `TriggerTemplate`
+   * `EventListener`
+   * Enables GitHub webhook-based automation
+
+6. **Optional PipelineRun**
+
+   * Allows manual pipeline execution for testing and validation
+
+---
+
+### ▶️ Script Usage
+
+Make the script executable:
+
+```bash
+chmod +x apply-all.sh
+```
+
+Apply all Tekton resources to the target namespace:
+
+```bash
+./apply-all.sh --namespace sn-labs-ayoubchaieb7
+```
+
+Apply resources **and expose the EventListener** via OpenShift Route:
+
+```bash
+./apply-all.sh --namespace sn-labs-ayoubchaieb7 --expose-eventlistener
+```
+
+Run a **manual PipelineRun** after setup:
+
+```bash
+./apply-all.sh --namespace sn-labs-ayoubchaieb7 --run-pipelinerun
+```
+
+---
+
+### 🌐 GitHub Webhook Enablement
+
+When the `--expose-eventlistener` flag is used:
+
+* The script exposes the EventListener service using:
+
+  ```bash
+  oc expose svc/<eventlistener-service>
+  ```
+* The generated **Route URL** is printed
+* This URL is used as the **GitHub webhook Payload URL**
+* Any `push` event automatically triggers a new `PipelineRun`
+
+This confirms **end-to-end CI/CD automation** from GitHub commit to OpenShift deployment.
+
+---
+
+### 🧪 Local Trigger Testing (Port Forward)
+
+The script can also prepare the environment for **local webhook testing**:
+
+```bash
+./apply-all.sh --port-forward-test
+```
+
+This enables:
+
+* Port-forwarding the EventListener to `localhost:8090`
+* Manual `curl` POST testing with a simulated GitHub payload
+
+---
+
+### 🏆 Outcome & Skills Demonstrated
+
+By implementing and using `apply-all.sh`, this project demonstrates:
+
+* Infrastructure as Code (IaC) mindset
+* Advanced Tekton resource orchestration
+* CI/CD automation best practices
+* GitHub-to-OpenShift event-driven pipelines
+* Production-grade DevOps scripting and tooling
+
+This script transforms the project from a **manual lab exercise** into a **reproducible, enterprise-style CI/CD system**.
