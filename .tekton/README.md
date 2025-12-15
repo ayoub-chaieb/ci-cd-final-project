@@ -39,7 +39,7 @@ This directory will contain all the Tekton workflows i created in this CI/CD Too
 
 ## Quick apply (one-shot)
 
-Run `apply-all.bash`to get everything installed in your namespace
+Run `apply-all.sh`to get everything installed in your namespace
 
 (equivalent to) running these commands in order:
 
