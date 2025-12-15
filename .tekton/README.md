@@ -1,7 +1,7 @@
 # .tekton — Complete Tekton CI/CD + GitHub Trigger README
-This directory will contain all the Tekton workflows you create in the CI/CD Tools and Practices Final Project.
+This directory will contain all the Tekton workflows i created in this CI/CD Tools Practices project.
 
-**Goal:** provide a single, exhaustive reference describing every file in this folder and every step to install, test, and expose the Tekton pipeline + triggers (EventListener, TriggerBinding, TriggerTemplate) so GitHub webhooks automatically start pipeline runs.
+**Goal:** provide a single, exhaustive reference describing every file in this folder and every step to install, test, and expose the Tekton pipeline + triggers (EventListener, TriggerBinding, TriggerTemplate) so GitHub webhooks automatically start pipeline runs on push/pull request triggers.
 
 > **Namespace used in examples:** `sn-labs-ayoubchaieb7`
 > Replace with your namespace when running commands.
@@ -32,7 +32,7 @@ This directory will contain all the Tekton workflows you create in the CI/CD Too
 1. GitHub webhook → HTTP POST → **EventListener**
 2. EventListener uses **TriggerBinding** to extract values from the webhook JSON (e.g. `repository.url`, `ref`)
 3. EventListener invokes **TriggerTemplate** which creates a **PipelineRun** resource (populated with params from the binding)
-4. Tekton executes `PipelineRun` → runs `Pipeline` tasks: clone, lint, tests, build, deploy
+4. Tekton executes `PipelineRun` → runs `Pipeline` tasks: clone, lint (flake8), tests (nose), build (buildah), deploy
 5. Final `deploy` action uses `oc` (openshift-client) to create/update Kubernetes/Openshift Deployment
 
 ---
