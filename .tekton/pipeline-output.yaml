@@ -1,33 +1,14 @@
 ﻿apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
-  creationTimestamp: '2025-12-12T15:08:39Z'
-  generation: 2
-  managedFields:
-    - apiVersion: tekton.dev/v1
-      fieldsType: FieldsV1
-      fieldsV1:
-        'f:spec':
-          .: {}
-          'f:finally': {}
-          'f:params': {}
-          'f:tasks': {}
-          'f:workspaces': {}
-      manager: Mozilla
-      operation: Update
-      time: '2025-12-12T15:19:41Z'
   name: output
   namespace: sn-labs-ayoubchaieb7
-  resourceVersion: '2532771392'
-  uid: 75ce51a7-cc34-4759-9751-4ea8995051f9
 spec:
   finally:
-    - name: openshift-client
+    - name: deploy
       params:
         - name: SCRIPT
           value: oc create deployment $(params.app-name) --image=$(params.build-image) --dry-run=client -o yaml | oc apply -f -
-        - name: VERSION
-          value: latest
       taskRef:
         kind: ClusterTask
         name: openshift-client
@@ -46,52 +27,10 @@ spec:
       workspaces:
         - name: source
           workspace: output
-    - name: git-clone
-      params:
-        - name: url
-          value: 'https://github.com/ayoub-chaieb/ci-cd-final-project.git'
-        - name: revision
-          value: ''
-        - name: refspec
-          value: ''
-        - name: submodules
-          value: 'true'
-        - name: depth
-          value: '1'
-        - name: sslVerify
-          value: 'true'
-        - name: crtFileName
-          value: ca-bundle.crt
-        - name: subdirectory
-          value: ''
-        - name: sparseCheckoutDirectories
-          value: ''
-        - name: deleteExisting
-          value: 'true'
-        - name: httpProxy
-          value: ''
-        - name: httpsProxy
-          value: ''
-        - name: noProxy
-          value: ''
-        - name: verbose
-          value: 'true'
-        - name: gitInitImage
-          value: 'registry.redhat.io/openshift-pipelines/pipelines-git-init-rhel8@sha256:75d6228eb656b8778fb3bb8dc68c686ac1c9b787e5343ae3c2467f8e724af83e'
-        - name: userHome
-          value: /home/git
-      runAfter:
-        - cleanup
-      taskRef:
-        kind: ClusterTask
-        name: git-clone
-      workspaces:
-        - name: output
-          workspace: output
     - name: nose
       params:
         - name: args
-          value: '-v'
+          value: '-v --with-spec --spec-color'
       runAfter:
         - flake8
       taskRef:
@@ -104,24 +43,6 @@ spec:
       params:
         - name: IMAGE
           value: $(params.build-image)
-        - name: BUILDER_IMAGE
-          value: 'registry.redhat.io/rhel8/buildah@sha256:aac6629389db17e99894c5bee0da01d4c8065d11d8c6f6e1602f9484290baa70'
-        - name: STORAGE_DRIVER
-          value: vfs
-        - name: DOCKERFILE
-          value: ./Dockerfile
-        - name: CONTEXT
-          value: .
-        - name: TLSVERIFY
-          value: 'true'
-        - name: FORMAT
-          value: oci
-        - name: BUILD_EXTRA_ARGS
-          value: ''
-        - name: PUSH_EXTRA_ARGS
-          value: ''
-        - name: SKIP_PUSH
-          value: 'false'
       runAfter:
         - nose
       taskRef:
@@ -129,6 +50,18 @@ spec:
         name: buildah
       workspaces:
         - name: source
+          workspace: output
+    - name: git-clone
+      params:
+        - name: url
+          value: 'https://github.com/ayoub-chaieb/ci-cd-final-project.git'
+      runAfter:
+        - cleanup
+      taskRef:
+        kind: ClusterTask
+        name: git-clone
+      workspaces:
+        - name: output
           workspace: output
     - name: flake8
       params:

@@ -1,0 +1,17 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: pipelinerun-output
+  namespace: sn-labs-ayoubchaieb7
+spec:
+  pipelineRef:
+    name: output
+  params:
+    - name: build-image
+      value: image-registry.openshift-image-registry.svc:5000/sn-labs-ayoubchaieb7/tekton-lab:latest
+    - name: app-name
+      value: cicd-app
+  workspaces:
+    - name: output
+      persistentVolumeClaim:
+        claimName: pipelinerun-pvc
