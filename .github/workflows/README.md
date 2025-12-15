@@ -145,18 +145,6 @@ If the workflow fails on CI, reproduce locally with the commands above to iterat
 
 ---
 
-## Badge (status) for README
-
-Add a status badge to the repository README (replace `<owner>` and `<repo>`):
-
-```markdown
-![CI](https://github.com/ayoub-chaieb/ci-cd-final-project/actions/workflows/workflow.yaml/badge.svg)
-```
-
-This will show the latest build status for that workflow file.
-
----
-
 ## Troubleshooting tips
 
 * If `flake8` cannot be found: ensure `requirements.txt` contains `flake8` or install it globally in the container/venv.
