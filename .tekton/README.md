@@ -358,7 +358,7 @@ kubectl apply -f .tekton/clustertasks.yaml
 
 ---
 
-## Resume-ready bullets (what you implemented)
+## Summary Bullets (what you implemented)
 
 * Implemented Tekton `Pipeline` with modular `Task`s and ClusterTasks for `git-clone`, `buildah`, and `oc` deploy.
 * Created `TriggerBinding`, `TriggerTemplate`, and `EventListener` to enable GitHub → Tekton event-driven CI/CD.
