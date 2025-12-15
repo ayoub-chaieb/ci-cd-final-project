@@ -380,7 +380,7 @@ kubectl apply -f .tekton/clustertasks.yaml
 10. `kubectl apply -f .tekton/eventlistener.yaml`
 11. Expose EventListener route and add GitHub webhook or use `kubectl port-forward` + `curl` to test
 
-##Helpful command snippets you can copy/paste
+## Helpful command snippets you can copy/paste
 ```bash
 # Start a manual run using your pipelinerun manifest
 kubectl apply -f .tekton/pipelinerun.yaml
