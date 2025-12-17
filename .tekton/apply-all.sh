@@ -240,6 +240,3 @@ if [[ "$TKN_AVAILABLE" == true ]]; then
   echo "Tekton eventlisteners:"
   tkn eventlistener ls -n "$NAMESPACE" || true
 fi
-
-echo
-echo "Done. If you want me to also generate a small test script that performs the port-forward and posts the test curl payload automatically, ask and I'll add it."
