@@ -4,7 +4,7 @@ metadata:
   name: myvpa
 spec:
   targetRef:
-    apiVersion: "apps/latest"
+    apiVersion: "apps/v1"
     kind: Deployment
     name: myapp
   updatePolicy:
