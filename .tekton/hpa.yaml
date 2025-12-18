@@ -4,7 +4,7 @@ metadata:
   name: myhpa
 spec:
   scaleTargetRef:
-    apiVersion: apps/latest
+    apiVersion: apps/v1
     kind: Deployment
     name: myapp
   minReplicas: 1         # Minimum number of replicas
