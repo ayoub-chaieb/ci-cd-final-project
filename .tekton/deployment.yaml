@@ -1,14 +1,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: myapp
+  namespace: sn-labs-ayoubchaieb7
+  name: app
   labels:
-    app: myapp
+    app: app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: myapp
+      app: app
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -17,12 +18,12 @@ spec:
   template:
     metadata:
       labels:
-        app: myapp
+        app: app
     spec:
       containers:
       - image: image-registry.openshift-image-registry.svc:5000/sn-labs-ayoubchaieb7/tekton-lab:latest
         imagePullPolicy: Always
-        name: myapp
+        name: app
         ports:
         - containerPort: 3000
           name: http
