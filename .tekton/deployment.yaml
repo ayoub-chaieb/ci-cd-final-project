@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: sn-labs-ayoubchaieb7
-  name: app
+  name: cicd-app
   labels:
     app: app
 spec:
