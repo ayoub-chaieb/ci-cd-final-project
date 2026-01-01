@@ -1,0 +1,66 @@
+# .tekton/tracing/otel-collector.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: otel-collector-config
+data:
+  otel-collector-config.yaml: |
+    receivers:
+      otlp:
+        protocols:
+          grpc:
+          http:
+    processors:
+      batch:
+    exporters:
+      jaeger:
+        endpoint: "jaeger:14268"
+    service:
+      pipelines:
+        traces:
+          receivers: [otlp]
+          processors: [batch]
+          exporters: [jaeger]
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: otel-collector
+  labels:
+    app: otel-collector
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: otel-collector
+  template:
+    metadata:
+      labels:
+        app: otel-collector
+    spec:
+      containers:
+        - name: otel-collector
+          image: otel/opentelemetry-collector-contrib:0.84.0
+          args: ["--config=/conf/otel-collector-config.yaml"]
+          volumeMounts:
+            - name: otel-config
+              mountPath: /conf
+      volumes:
+        - name: otel-config
+          configMap:
+            name: otel-collector-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: otel-collector
+spec:
+  selector:
+    app: otel-collector
+  ports:
+    - name: otlp-grpc
+      port: 4317
+      targetPort: 4317
+    - name: otlp-http
+      port: 4318
+      targetPort: 4318

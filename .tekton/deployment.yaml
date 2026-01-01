@@ -32,3 +32,8 @@ spec:
             cpu: 50m
           requests:
             cpu: 20m
+        env:
+          - name: OTEL_EXPORTER_OTLP_ENDPOINT
+            value: "otel-collector:4317"
+          - name: OTEL_SERVICE_NAME
+            value: "cicd-app"

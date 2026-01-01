@@ -21,3 +21,9 @@ coverage==6.3.2
 
 # Utilities
 httpie==3.2.1
+
+# Tracing
+opentelemetry-api
+opentelemetry-sdk
+opentelemetry-instrumentation-flask
+opentelemetry-exporter-otlp-proto-grpc
