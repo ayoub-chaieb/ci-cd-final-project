@@ -1,6 +1,7 @@
 """
 Service Package
 """
+import os
 from flask import Flask
 from opentelemetry import trace
 from opentelemetry.sdk.resources import Resource
