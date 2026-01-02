@@ -6,6 +6,6 @@ spec:
   targetRef:
     apiVersion: "apps/v1"
     kind: Deployment
-    name: app
+    name: cicd-app
   updatePolicy:
     updateMode: "Auto"  # VPA will automatically update the resource requests and limits

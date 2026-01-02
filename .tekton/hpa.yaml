@@ -7,7 +7,7 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: app
+    name: cicd-app
   minReplicas: 1         # Minimum number of replicas
   maxReplicas: 10        # Maximum number of replicas
   targetCPUUtilizationPercentage: 5  # Target CPU utilization for scaling

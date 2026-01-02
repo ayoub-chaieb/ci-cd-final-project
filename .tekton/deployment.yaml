@@ -23,7 +23,7 @@ spec:
       containers:
       - image: image-registry.openshift-image-registry.svc:5000/sn-labs-ayoubchaieb7/tekton-lab:latest
         imagePullPolicy: Always
-        name: app
+        name: cicd-app
         ports:
         - containerPort: 3000
           name: http
